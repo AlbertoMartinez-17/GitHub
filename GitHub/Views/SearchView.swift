@@ -31,20 +31,18 @@ struct SearchView: View {
                     .cornerRadius(12)
                     .disabled(username.isEmpty)
                     
-                    NavigationLink(
-                        destination: FollowersView(username: username),
-                        isActive: $goNext){
-                            
-                        }
                 }
                 .padding(24)
+                .navigationDestination(isPresented: $goNext) {
+                    FollowersView(username: username)
+                }
             }
         }
     }
 }
 
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
-    }
-}
+//struct SearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchView()
+//    }
+//}

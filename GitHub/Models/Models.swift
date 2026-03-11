@@ -21,7 +21,7 @@ struct FavoriteUser: Codable, Equatable, Identifiable {
     var id: String { username }
 }
 
-struct GitHubUser: Decodable {
+struct GitHubUser: Decodable, Equatable {
     let login: String
     let avatar_url: String
 }

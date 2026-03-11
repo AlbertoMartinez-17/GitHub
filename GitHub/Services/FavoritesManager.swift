@@ -44,15 +44,9 @@ final class FavoritesManager {
         save(favorites)
     }
     
-//    func toggleFavorite(username: String) {
-//        var favorites = getFavorites()
-//
-//        if let index = favorites.firstIndex(of: username) {
-//            favorites.remove(at: index)
-//        } else {
-//            favorites.append(username)
-//        }
-//
-//        UserDefaults.standard.set(favorites, forKey: key)
-//    }
+    func isFavorite(_ username: String) -> Bool {
+        let favorites = getFavorites()
+        return favorites.contains { $0.username == username }
+    }
+    
 }

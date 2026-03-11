@@ -45,13 +45,25 @@ struct FollowersView: View {
             viewModel.fetchFollowers(username: username)
             viewModel.fetchUser(username: username)
         }
+        .onChange(of: viewModel.user) { user in
+            guard let user else { return }
+            isFavorite = FavoritesManager.shared.isFavorite(user.login)
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     guard let favUser = viewModel.user else { return }
+                    
                     let favorite = FavoriteUser(username: favUser.login, avatarURL: favUser.avatar_url)
-                    isFavorite = FavoritesManager.shared.add(favorite)
-//                    isFavorite.toggle()
+                    
+                    if isFavorite {
+                        FavoritesManager.shared.remove(favorite)
+                        isFavorite = false
+                    } else {
+                        FavoritesManager.shared.add(favorite)
+                        isFavorite = true
+                    }
+
                 } label: {
                     Image(systemName: isFavorite ? "star.fill" : "star")
                 }
